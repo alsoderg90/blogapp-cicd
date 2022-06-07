@@ -1,0 +1,42 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+      branches: [main]
+      types: [opened, synchronize]
+jobs:
+  simple_deployment_pipeline:   
+    runs-on: ubuntu-20.04    
+    steps:      
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:          
+          node-version: '16'     
+      - name: npm install
+        run: npm install
+      - name: lint        
+        run: npm run eslint
+      - name: build
+        run: npm run build
+      - uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() }}
+        with:
+            severity: error
+            text: Build failed
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: test
+        run: npm run test
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        env:
+            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+            PORT: ${{ secrets.PORT }}
+            DB_PASS: ${{ secrets.DB_PASS }}
+            DB_USER: ${{ secrets.DB_USER }}
+        with:
+            command: npx cypress run
+            start: npm run start:test
+            wait-on: 'http://localhost:3001'
