@@ -40,3 +40,20 @@ jobs:
             command: npx cypress run
             start: npm run start:test
             wait-on: 'http://localhost:3001'
+      - name: Deploying to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        if:  ${{github.event_name == 'push' && !contains(join(github.event.commits.*.message,' '), '#skip')}}
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "blogapp-alsoderg" #Must be unique in Heroku
+          heroku_email: "alexander.sodergard@gmail.com" 
+          healthcheck: "https://blogapp-alsoderg.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
+      - name: Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() }}
+        with:
+          severity: info
+          details: New version of https://blogapp-alsoderg.herokuapp.com deployment succeeded
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
