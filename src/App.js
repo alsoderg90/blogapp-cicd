@@ -20,7 +20,7 @@ const App = () => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
     )
-  })
+  },[user])
 
   useEffect (() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -45,6 +45,7 @@ const App = () => {
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
     }
     catch (exception) {
+	  console.log(exception)
       setMessage('wrong credentials')
       setMessageClass('error')
       setTimeout(() => {

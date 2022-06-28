@@ -13,9 +13,9 @@ mongoose.set('useFindAndModify', false)
 
 
 
-logger.info('connecting to', config.mongoUrl)
+logger.info('connecting to', config.appName)
 //mongoose.connect(config.mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true})
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.p7hqz.mongodb.net/bloglist-app-test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.p7hqz.mongodb.net/${config.appName}?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true})
   .then(result => {
     logger.info('connected to MongoDB:', result)
   })

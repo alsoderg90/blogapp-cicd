@@ -45,9 +45,9 @@ jobs:
         if:  ${{github.event_name == 'push' && !contains(join(github.event.commits.*.message,' '), '#skip')}}
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "blogapp-alsoderg" #Must be unique in Heroku
+          heroku_app_name: "full-stack-blog-app-alsoderg" #Must be unique in Heroku
           heroku_email: "alexander.sodergard@gmail.com" 
-          healthcheck: "https://blogapp-alsoderg.herokuapp.com/health"
+          healthcheck: "https://full-stack-blog-app-alsoderg.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
       - name: Success
@@ -55,5 +55,5 @@ jobs:
         if: ${{ success() }}
         with:
           severity: info
-          details: New version of https://blogapp-alsoderg.herokuapp.com deployment succeeded
+          details: New version of https://full-stack-blog-app-alsoderg.herokuapp.com deployment succeeded
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
