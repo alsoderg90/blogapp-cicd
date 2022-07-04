@@ -5,6 +5,7 @@ import loginService from './services/login'
 import LoginForm from './components/Login'
 import Notification from './components/Notification'
 import BlogForm from './components/BlogForm'
+import { Button, Container, Col, Row } from 'react-bootstrap'
 
 const App = () => {
 //const [blog, newBlog] = useState({title:'', author:'', url:''})
@@ -18,7 +19,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+      setBlogs(blogs)
     )
   },[user])
 
@@ -74,27 +75,46 @@ const App = () => {
   const blogForm = () => {
     const hideWhenVisible = { display: blogsVisible ? 'none' : '' }
     const showWhenVisible = { display: blogsVisible ? '' : 'none' }
-
     const sortedList = blogs.sort((a,b) => (a.likes < b.likes) ? 1 : -1)
 
     return (
-      <div>
-        <h2>Blogs</h2>
+      <Container>
+        <Row>
+          <h2>Blogs</h2>
+        </Row>
         <p>
-          {user.name} logged in <button onClick = {() => {
-            window.localStorage.clear()
-            setUser(null)}}> Log out </button>
+          <Row>
+            <Col>
+              {user.name} logged in 
+		  </Col>
+		  <Col>
+		  <Button varitant="danger" onClick = {() => {
+                window.localStorage.clear()
+                setUser(null)}}> Log out 
+              </Button>
+		  </Col>
+		  </Row>
         </p>
-        {sortedList.map(blog => <Blog key={blog.id} blog={blog} users={user} setBlogs={() => setBlogs} blogs={blogs}/>) }
-        <div style={hideWhenVisible}> <button onClick={() => setBlogsVisible(true)}> Create </button>
-        </div>
-        <div style={showWhenVisible}>
-          <BlogForm
-            addBlog={addBlog}
-            setBlogsVisible={setBlogsVisible}
-            user={user}/>
-        </div>
-      </div>
+        {sortedList.map(blog => 
+          <Blog 
+		  	key={blog.id} 
+            blog={blog} 
+            setBlogs={() => setBlogs} blogs={blogs}
+          />
+        )}
+        <Container style={hideWhenVisible}> 
+          <Button onClick={() => setBlogsVisible(true)}> Create </Button>
+        </Container>
+        <Container style={showWhenVisible}>
+          <Row>
+            <BlogForm
+              addBlog={addBlog}
+              setBlogsVisible={setBlogsVisible}
+              user={user}
+            />
+          </Row>
+        </Container>
+      </Container>
     )
   }
 
