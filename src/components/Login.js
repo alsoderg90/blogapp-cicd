@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Button, Form, Container, Row, Col} from 'react-bootstrap'
 
 const LoginForm = ({
   setUserName,
@@ -9,30 +10,46 @@ const LoginForm = ({
   handleLogin
 }) => {
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <h2>Log in to application</h2>
-        <div> Username
-          <input
-            id='username'
-            type ="username"
-            value={username}
-            name='Username'
-            onChange = {setUserName}
-          />
-        </div>
-        <div> Password
-          <input
-            id='password'
-            type = "password"
-            value = {password}
-            name = "password"
-            onChange = {setPassword}
-          />
-        </div>
-        <button id='login-button' type="submit">Login</button>
-      </form>
-    </div>
+    <Container>
+      <Form onSubmit={handleLogin}>
+        <Row>
+          <h2>Log in to application</h2>
+        </Row>
+        <Row>
+		  <Col>
+            <Form.Label> Username: </Form.Label>
+          </Col>
+          <Col>
+            <Form.Control
+              id='username'
+              type ="username"
+              value={username}
+              name='Username'
+              onChange = {setUserName}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Label> Password</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control
+              id='password'
+              type = "password"
+              value = {password}
+              name = "password"
+              onChange = {setPassword}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button id='login-button' style={{width: '25%'}} type="submit">Login</Button>
+		  </Col>
+        </Row>
+      </Form>
+    </Container>
   )
 }
 
