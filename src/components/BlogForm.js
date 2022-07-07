@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import { Button, Row, Col } from 'react-bootstrap'
 
 
 const BlogForm = ({ setBlogsVisible,addBlog }) => {
@@ -30,7 +30,11 @@ const BlogForm = ({ setBlogsVisible,addBlog }) => {
         <Form.Control id='url' type="text" value={url} name="url" onChange={({ target }) => {setUrl(target.value)}}/>
         <Button id='create' type="submit">Create</Button>
       </Form>
-      <Button onClick={() => setBlogsVisible(false)}> Cancel </Button>
+	  <Row>
+        <Col>
+          <Button onClick={() => setBlogsVisible(false)}> Cancel </Button>
+	  </Col>
+	  </Row>
     </div>
   )
 }
