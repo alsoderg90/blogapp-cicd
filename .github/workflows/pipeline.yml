@@ -58,6 +58,7 @@ jobs:
           details: New version of https://full-stack-blog-app-alsoderg.herokuapp.com deployment succeeded
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
    
+   
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
