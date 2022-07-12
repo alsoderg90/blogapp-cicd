@@ -13,7 +13,10 @@ const LoginForm = ({
     <Container>
       <Form onSubmit={handleLogin}>
         <Row>
-          <h2>Log in to application</h2>
+          <Col>
+            <h1>Welcome to my app!</h1>
+            <h2>Log in to application</h2>
+		  </Col>
         </Row>
         <Row>
 		  <Col>
