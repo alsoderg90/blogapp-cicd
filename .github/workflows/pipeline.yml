@@ -57,9 +57,26 @@ jobs:
           severity: info
           details: New version of https://full-stack-blog-app-alsoderg.herokuapp.com deployment succeeded
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+<<<<<<< HEAD
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.36.0
         if:  ${{github.event_name == 'push'}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           DEFAULT_BUMP: patch         
+=======
+   
+  tag_release:
+  needs: [simple_deployment_pipeline]
+  runs-on: ubuntu-20.04
+  steps:
+  - uses: actions/checkout@v2
+    with:
+      fetch-depth: '0'
+  - name: Bump version and push tag
+    if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+    uses: anothrNick/github-tag-action@1.36.0
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DEFAULT_BUMP: patch
+>>>>>>> 13ea6db2eae488cd6b0bd505d7865cda5d2de1d8
