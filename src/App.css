@@ -53,3 +53,10 @@
   border-radius: 15px;
   padding: 15px;
 }
+
+button {
+  padding: .2em .5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
